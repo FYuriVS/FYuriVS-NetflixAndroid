@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.yurivital.netflixandroid.model.Category
 import com.yurivital.netflixandroid.model.Movie
+import com.yurivital.netflixandroid.util.CategoryTask
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,25 +25,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val categories = mutableListOf<Category>()
-        for (j in 0 until 5) {
-            val movies = mutableListOf<Movie>()
-            for (i in 0 until 15) {
-                val movie = Movie(coverUrl = R.drawable.placeholder)
-                movies.add(movie)
-            }
 
-            val category = Category(name = "cat $j", movies = movies);
-            categories.add(category)
-        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
         val adapter = CategoryAdapter(categories)
-        val rv : RecyclerView = findViewById(R.id.rv_main)
+        val rv: RecyclerView = findViewById(R.id.rv_main)
         rv.layoutManager = LinearLayoutManager(this)
         rv.adapter = adapter
+
+        CategoryTask().execute("https://api.tiagoaguiar.co/netflixapp/home?apiKey=69bb9d91-f4da-451f-8670-d89bb1f9a837")
     }
 }
 

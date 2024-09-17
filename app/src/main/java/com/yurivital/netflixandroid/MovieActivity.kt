@@ -31,10 +31,6 @@ class MovieActivity : AppCompatActivity() {
         val rv: RecyclerView = findViewById(R.id.movie_rv_similar)
 
         val movies = mutableListOf<Movie>()
-        for (i in 0 until 15) {
-            val movie = Movie(coverUrl = R.drawable.placeholder)
-            movies.add(movie)
-        }
 
         rv.layoutManager = GridLayoutManager(this, 3)
         rv.adapter = MovieAdapter(movies, R.layout.movie_item_semelhante)
